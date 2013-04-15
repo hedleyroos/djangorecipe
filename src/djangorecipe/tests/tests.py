@@ -169,7 +169,7 @@ class TestRecipeScripts(BaseTestRecipe):
     def test_make_protocol_named_script_wsgi(self):
         # A wsgi-script name option is specified
         self.recipe.options['wsgi'] = 'true'
-        self.recipe.options['wsgi'] = 'foo-wsgi.py'
+        self.recipe.options['wsgi-script'] = 'foo-wsgi.py'
         self.recipe.make_scripts([], [])
         wsgi_script = os.path.join(self.bin_dir, 'foo-wsgi.py')
         self.assertTrue(os.path.exists(wsgi_script))
