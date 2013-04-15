@@ -166,6 +166,14 @@ class TestRecipeScripts(BaseTestRecipe):
         wsgi_script = os.path.join(self.bin_dir, 'django.wsgi')
         self.assertTrue(os.path.exists(wsgi_script))
 
+    def test_make_protocol_named_script_wsgi(self):
+        # A wsgi-script name option is specified
+        self.recipe.options['wsgi'] = 'true'
+        self.recipe.options['wsgi'] = 'foo-wsgi.py'
+        self.recipe.make_scripts([], [])
+        wsgi_script = os.path.join(self.bin_dir, 'foo-wsgi.py')
+        self.assertTrue(os.path.exists(wsgi_script))
+
     def test_contents_protocol_script_wsgi(self):
         self.recipe.options['wsgi'] = 'true'
         self.recipe.make_scripts([], [])
@@ -205,6 +213,15 @@ class TestRecipeScripts(BaseTestRecipe):
                         "logfile='')"
                         in contents)
         self.assertTrue("class logger(object)" not in contents)
+
+    def test_make_protocol_named_script_fcgi(self):
+        # A fcgi-script name option is specified
+        self.recipe.options['fcgi'] = 'true'
+        self.recipe.options['fcgi-script'] = 'foo-fcgi'
+        self.recipe.make_scripts([], [])
+
+        fcgi_script = os.path.join(self.bin_dir, 'foo-fcgi')
+        self.assertTrue(os.path.exists(fcgi_script))
 
     def test_contents_log_protocol_script_wsgi(self):
         self.recipe.options['wsgi'] = 'true'
